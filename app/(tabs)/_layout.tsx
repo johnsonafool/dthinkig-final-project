@@ -1,54 +1,54 @@
-import { Tabs } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Colors from '@/constants/Colors';
+import { Tabs } from "expo-router";
+import { FontAwesome, Ionicons, Octicons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 
 const Layout = () => {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors.primary,
+        tabBarActiveTintColor: "#0D9E00",
         tabBarLabelStyle: {
-          fontFamily: 'mon-sb',
+          fontFamily: "mon-sb",
         },
-      }}>
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          tabBarLabel: 'Explore',
-          tabBarIcon: ({ size, color }) => <Ionicons name="search" size={size} color={color} />,
+          tabBarLabel: "記帳",
+          tabBarIcon: ({ size, color }) => (
+            <MaterialIcons name="sticky-note-2" size={size} color={color} />
+          ),
         }}
       />
+
       <Tabs.Screen
-        name="whishlists"
+        name="plan"
         options={{
-          tabBarLabel: 'Wishlists',
+          tabBarLabel: "計畫",
+          headerShown: false,
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name="heart-outline" size={size} color={color} />
+            // <Ionicons name="heart-outline" size={size} color={color} />
+            <Octicons name="project" size={24} size={size} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="trips"
+        name="learn"
         options={{
-          tabBarLabel: 'Trips',
-          tabBarIcon: ({ size, color }) => <FontAwesome5 name="airbnb" size={size} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="inbox"
-        options={{
-          tabBarLabel: 'Inbox',
+          tabBarLabel: "學習",
+          headerShown: false,
           tabBarIcon: ({ size, color }) => (
-            <MaterialCommunityIcons name="message-outline" size={size} color={color} />
+            <FontAwesome name="book" size={size} color={color} />
           ),
         }}
       />
+
       <Tabs.Screen
         name="profile"
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: "我的",
 
           headerShown: false,
           tabBarIcon: ({ size, color }) => (

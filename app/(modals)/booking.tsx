@@ -1,38 +1,50 @@
-import { View, Text, StyleSheet, ScrollView, Image, SafeAreaView } from 'react-native';
-import { useState } from 'react';
-import Animated, { FadeIn, FadeOut, SlideInDown } from 'react-native-reanimated';
-import { Ionicons } from '@expo/vector-icons';
-import { BlurView } from 'expo-blur';
-import { TextInput } from 'react-native-gesture-handler';
-import { TouchableOpacity } from '@gorhom/bottom-sheet';
-import { defaultStyles } from '@/constants/Styles';
-import Colors from '@/constants/Colors';
-import { places } from '@/assets/data/places';
-import { useRouter } from 'expo-router';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  SafeAreaView,
+} from "react-native";
+import { useState } from "react";
+import Animated, {
+  FadeIn,
+  FadeOut,
+  SlideInDown,
+} from "react-native-reanimated";
+import { Ionicons } from "@expo/vector-icons";
+import { BlurView } from "expo-blur";
+import { TextInput } from "react-native-gesture-handler";
+import { TouchableOpacity } from "@gorhom/bottom-sheet";
+import { defaultStyles } from "@/constants/Styles";
+import Colors from "@/constants/Colors";
+// import { places } from '@/assets/data/places';
+import { useRouter } from "expo-router";
 // @ts-ignore
-import DatePicker from 'react-native-modern-datepicker';
+import DatePicker from "react-native-modern-datepicker";
 
-const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
+const AnimatedTouchableOpacity =
+  Animated.createAnimatedComponent(TouchableOpacity);
 
 const guestsGropus = [
   {
-    name: 'Adults',
-    text: 'Ages 13 or above',
+    name: "Adults",
+    text: "Ages 13 or above",
     count: 0,
   },
   {
-    name: 'Children',
-    text: 'Ages 2-12',
+    name: "Children",
+    text: "Ages 2-12",
     count: 0,
   },
   {
-    name: 'Infants',
-    text: 'Under 2',
+    name: "Infants",
+    text: "Under 2",
     count: 0,
   },
   {
-    name: 'Pets',
-    text: 'Pets allowed',
+    name: "Pets",
+    text: "Pets allowed",
     count: 0,
   },
 ];
@@ -59,7 +71,8 @@ const Page = () => {
             onPress={() => setOpenCard(0)}
             style={styles.cardPreview}
             entering={FadeIn.duration(200)}
-            exiting={FadeOut.duration(200)}>
+            exiting={FadeOut.duration(200)}
+          >
             <Text style={styles.previewText}>Where</Text>
             <Text style={styles.previewdData}>I'm flexible</Text>
           </AnimatedTouchableOpacity>
@@ -67,9 +80,18 @@ const Page = () => {
 
         {openCard == 0 && <Text style={styles.cardHeader}>Where to?</Text>}
         {openCard == 0 && (
-          <Animated.View entering={FadeIn} exiting={FadeOut} style={styles.cardBody}>
+          <Animated.View
+            entering={FadeIn}
+            exiting={FadeOut}
+            style={styles.cardBody}
+          >
             <View style={styles.searchSection}>
-              <Ionicons style={styles.searchIcon} name="ios-search" size={20} color="#000" />
+              <Ionicons
+                style={styles.searchIcon}
+                name="ios-search"
+                size={20}
+                color="#000"
+              />
               <TextInput
                 style={styles.inputField}
                 placeholder="Search destinations"
@@ -80,8 +102,9 @@ const Page = () => {
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.placesContainer}>
-              {places.map((item, index) => (
+              contentContainerStyle={styles.placesContainer}
+            >
+              {/* {places.map((item, index) => (
                 <TouchableOpacity onPress={() => setSelectedPlace(index)} key={index}>
                   <Image
                     source={item.img}
@@ -89,7 +112,7 @@ const Page = () => {
                   />
                   <Text style={{ fontFamily: 'mon', paddingTop: 6 }}>{item.title}</Text>
                 </TouchableOpacity>
-              ))}
+              ))} */}
             </ScrollView>
           </Animated.View>
         )}
@@ -102,26 +125,29 @@ const Page = () => {
             onPress={() => setOpenCard(1)}
             style={styles.cardPreview}
             entering={FadeIn.duration(200)}
-            exiting={FadeOut.duration(200)}>
+            exiting={FadeOut.duration(200)}
+          >
             <Text style={styles.previewText}>When</Text>
             <Text style={styles.previewdData}>Any week</Text>
           </AnimatedTouchableOpacity>
         )}
 
-        {openCard == 1 && <Text style={styles.cardHeader}>When's your trip?</Text>}
+        {openCard == 1 && (
+          <Text style={styles.cardHeader}>When's your trip?</Text>
+        )}
 
         {openCard == 1 && (
           <Animated.View style={styles.cardBody}>
             <DatePicker
               options={{
-                defaultFont: 'mon',
-                headerFont: 'mon-sb',
+                defaultFont: "mon",
+                headerFont: "mon-sb",
                 mainColor: Colors.primary,
-                borderColor: 'transparent',
+                borderColor: "transparent",
               }}
               current={today}
               selected={today}
-              mode={'calendar'}
+              mode={"calendar"}
             />
           </Animated.View>
         )}
@@ -134,7 +160,8 @@ const Page = () => {
             onPress={() => setOpenCard(2)}
             style={styles.cardPreview}
             entering={FadeIn.duration(200)}
-            exiting={FadeOut.duration(200)}>
+            exiting={FadeOut.duration(200)}
+          >
             <Text style={styles.previewText}>Who</Text>
             <Text style={styles.previewdData}>Add guests</Text>
           </AnimatedTouchableOpacity>
@@ -150,42 +177,56 @@ const Page = () => {
                 style={[
                   styles.guestItem,
                   index + 1 < guestsGropus.length ? styles.itemBorder : null,
-                ]}>
+                ]}
+              >
                 <View>
-                  <Text style={{ fontFamily: 'mon-sb', fontSize: 14 }}>{item.name}</Text>
-                  <Text style={{ fontFamily: 'mon', fontSize: 14, color: Colors.grey }}>
+                  <Text style={{ fontFamily: "mon-sb", fontSize: 14 }}>
+                    {item.name}
+                  </Text>
+                  <Text
+                    style={{
+                      fontFamily: "mon",
+                      fontSize: 14,
+                      color: Colors.grey,
+                    }}
+                  >
                     {item.text}
                   </Text>
                 </View>
 
                 <View
                   style={{
-                    flexDirection: 'row',
+                    flexDirection: "row",
                     gap: 10,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
                   <TouchableOpacity
                     onPress={() => {
                       const newGroups = [...groups];
                       newGroups[index].count =
-                        newGroups[index].count > 0 ? newGroups[index].count - 1 : 0;
+                        newGroups[index].count > 0
+                          ? newGroups[index].count - 1
+                          : 0;
 
                       setGroups(newGroups);
-                    }}>
+                    }}
+                  >
                     <Ionicons
                       name="remove-circle-outline"
                       size={26}
-                      color={groups[index].count > 0 ? Colors.grey : '#cdcdcd'}
+                      color={groups[index].count > 0 ? Colors.grey : "#cdcdcd"}
                     />
                   </TouchableOpacity>
                   <Text
                     style={{
-                      fontFamily: 'mon',
+                      fontFamily: "mon",
                       fontSize: 16,
                       minWidth: 18,
-                      textAlign: 'center',
-                    }}>
+                      textAlign: "center",
+                    }}
+                  >
                     {item.count}
                   </Text>
                   <TouchableOpacity
@@ -193,8 +234,13 @@ const Page = () => {
                       const newGroups = [...groups];
                       newGroups[index].count++;
                       setGroups(newGroups);
-                    }}>
-                    <Ionicons name="add-circle-outline" size={26} color={Colors.grey} />
+                    }}
+                  >
+                    <Ionicons
+                      name="add-circle-outline"
+                      size={26}
+                      color={Colors.grey}
+                    />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -204,30 +250,41 @@ const Page = () => {
       </View>
 
       {/* Footer */}
-      <Animated.View style={defaultStyles.footer} entering={SlideInDown.delay(200)}>
+      <Animated.View
+        style={defaultStyles.footer}
+        entering={SlideInDown.delay(200)}
+      >
         <View
-          style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <TouchableOpacity
-            style={{ height: '100%', justifyContent: 'center' }}
-            onPress={onClearAll}>
+            style={{ height: "100%", justifyContent: "center" }}
+            onPress={onClearAll}
+          >
             <Text
               style={{
                 fontSize: 18,
-                fontFamily: 'mon-sb',
-                textDecorationLine: 'underline',
-              }}>
+                fontFamily: "mon-sb",
+                textDecorationLine: "underline",
+              }}
+            >
               Clear all
             </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[defaultStyles.btn, { paddingRight: 20, paddingLeft: 50 }]}
-            onPress={() => router.back()}>
+            onPress={() => router.back()}
+          >
             <Ionicons
               name="search-outline"
               size={24}
               style={defaultStyles.btnIcon}
-              color={'#fff'}
+              color={"#fff"}
             />
             <Text style={defaultStyles.btnText}>Search</Text>
           </TouchableOpacity>
@@ -243,11 +300,11 @@ const styles = StyleSheet.create({
     paddingTop: 100,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 14,
     margin: 10,
     elevation: 4,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOpacity: 0.3,
     shadowRadius: 4,
     shadowOffset: {
@@ -257,7 +314,7 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   cardHeader: {
-    fontFamily: 'mon-b',
+    fontFamily: "mon-b",
     fontSize: 24,
     padding: 20,
   },
@@ -266,19 +323,19 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   cardPreview: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     padding: 20,
   },
 
   searchSection: {
     height: 50,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
     borderWidth: 1,
-    borderColor: '#ABABAB',
+    borderColor: "#ABABAB",
     borderRadius: 8,
     marginBottom: 16,
   },
@@ -288,10 +345,10 @@ const styles = StyleSheet.create({
   inputField: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   placesContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 25,
   },
   place: {
@@ -307,20 +364,20 @@ const styles = StyleSheet.create({
     height: 100,
   },
   previewText: {
-    fontFamily: 'mon-sb',
+    fontFamily: "mon-sb",
     fontSize: 14,
     color: Colors.grey,
   },
   previewdData: {
-    fontFamily: 'mon-sb',
+    fontFamily: "mon-sb",
     fontSize: 14,
     color: Colors.dark,
   },
 
   guestItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingVertical: 16,
   },
   itemBorder: {

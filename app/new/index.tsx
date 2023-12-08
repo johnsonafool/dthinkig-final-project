@@ -8,22 +8,34 @@ import { Ionicons, AntDesign, Feather } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import * as Location from "expo-location";
 import { ScrollView } from "react-native";
-import { cardGap, cardWidth } from "./Listings";
+import { cardGap, cardWidth } from "../../components/Listings";
 import { TextInput } from "react-native";
 // import { Button } from "../components/Button";
 import { Modal } from "@/components/GenreModal";
+import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import AppIcon, { CusPlusIcon } from "@/components/AppIcon";
+
+// RN Code
+export const Col = ({ numRows, children }: { numRows: any; children: any }) => {
+  return <View style={styles.twoColGrid}>{children}</View>;
+};
+
+export const Row = ({ children }: { children: any }) => (
+  <View style={styles.row}>{children}</View>
+);
 
 const categories = [
   {
-    name: "Expense",
+    name: "支出",
     icon: "home",
   },
   {
-    name: "Income",
+    name: "收入",
     icon: "house-siding",
   },
   {
-    name: "Transfer",
+    name: "轉帳",
     icon: "local-fire-department",
   },
 ];
@@ -39,7 +51,7 @@ const INITIAL_REGION = {
   longitudeDelta: 9,
 };
 
-const ListingsMap = memo(({ listings }: Props) => {
+const Page = memo(({ listings }: Props) => {
   const router = useRouter();
   const mapRef = useRef<any>(null);
   const scrollRef = useRef<ScrollView>(null);
@@ -49,7 +61,7 @@ const ListingsMap = memo(({ listings }: Props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [showAdvanced, setShowAdvanced] = useState<boolean>(true);
   const [isModalVisible, setModalVisible] = useState(false);
-  const [day, setDay] = useState("10");
+  const [day, setDay] = useState(10);
 
   const selectCategory = (index: number) => {
     const selected = itemsRef.current[index];
@@ -90,9 +102,9 @@ const ListingsMap = memo(({ listings }: Props) => {
     mapRef.current?.animateToRegion(region);
   };
 
-  useEffect(() => {
-    console.log({ isModalVisible });
-  }, [isModalVisible]);
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
 
   // Overwrite the renderCluster function to customize the cluster markers
   const renderCluster = (cluster: any) => {
@@ -123,7 +135,8 @@ const ListingsMap = memo(({ listings }: Props) => {
     );
   };
 
-  const handl = () => {
+  const handleAddNewName = () => {
+    router.push("/new/add-new");
     setModalVisible(false);
   };
 
@@ -202,28 +215,57 @@ const ListingsMap = memo(({ listings }: Props) => {
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <View
             style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
               marginTop: cardGap,
-              marginLeft: 0,
-              width: cardWidth / 1.5,
-              height: cardWidth / 1.5,
-              backgroundColor: "white",
-              borderRadius: 16,
-              justifyContent: "center",
-              alignItems: "center",
-              borderColor: "#DEDEDE",
-              borderWidth: 1,
             }}
           >
-            <Text>{`icon`}</Text>
-            <Text>{`飲食`}</Text>
-            <Text>{`早餐`}</Text>
+            <View
+              style={{
+                marginLeft: 0,
+                width: cardWidth / 1.5,
+                height: cardWidth / 1.5,
+                backgroundColor: "white",
+                borderRadius: 16,
+                justifyContent: "center",
+                alignItems: "center",
+                borderColor: "#DEDEDE",
+                borderWidth: 1,
+                gap: 4,
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: "#489C2C",
+                  padding: 8,
+                  borderRadius: "50%",
+                }}
+              >
+                <MaterialIcons name="local-dining" size={24} color="white" />
+              </View>
+              <Text
+                style={{ fontFamily: "mon-sb", fontSize: 12 }}
+              >{`飲食`}</Text>
+              <Text
+                style={{ fontFamily: "mon-b", fontSize: 16 }}
+              >{`早餐`}</Text>
+            </View>
+            <View
+              style={{
+                justifyContent: "flex-end",
+                height: cardWidth / 1.5,
+              }}
+            >
+              <Text style={{ fontFamily: "mon-b", fontSize: 40 }}>$0</Text>
+            </View>
           </View>
         </TouchableOpacity>
         <View
           style={{
             display: "flex",
             flexDirection: "row",
-            marginTop: cardGap,
+            marginTop: cardGap * 2,
             marginLeft: 0,
             width: "100%",
             height: 40,
@@ -236,7 +278,14 @@ const ListingsMap = memo(({ listings }: Props) => {
             paddingHorizontal: 16,
           }}
         >
-          <AntDesign name="caretleft" size={16} color="black" />
+          <TouchableOpacity>
+            <AntDesign
+              name="caretleft"
+              size={16}
+              color="black"
+              onPress={() => setDay(day - 1)}
+            />
+          </TouchableOpacity>
           <Text
             style={{
               textAlign: "center",
@@ -246,15 +295,22 @@ const ListingsMap = memo(({ listings }: Props) => {
           >
             {`2023/12/${day}`}
           </Text>
-          <AntDesign name="caretright" size={16} color="black" />
+          <TouchableOpacity>
+            <AntDesign
+              name="caretright"
+              size={16}
+              color="black"
+              onPress={() => setDay(day + 1)}
+            />
+          </TouchableOpacity>
         </View>
-        <View>
-          <Text style={styles.info}>Account</Text>
+        <View style={{ marginTop: cardGap }}>
+          <Text style={styles.info}>帳戶</Text>
           <View
             style={{
               display: "flex",
               flexDirection: "row",
-              marginTop: cardGap,
+              marginTop: cardGap / 2,
               marginLeft: 0,
               width: "100%",
               height: 40,
@@ -275,7 +331,7 @@ const ListingsMap = memo(({ listings }: Props) => {
                 fontSize: 16,
               }}
             >
-              Cash
+              現金
             </Text>
             <Text
               style={{
@@ -285,127 +341,158 @@ const ListingsMap = memo(({ listings }: Props) => {
                 display: "flex",
               }}
             >
-              <Text>Balance</Text>
+              <Text>餘額</Text>
               <Text style={{ color: "#ED7B75" }}>{"-44"}</Text>
             </Text>
           </View>
         </View>
         <View>
-          {showAdvanced && (
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              // flexWrap: "wrap",
+              justifyContent: "space-between",
+            }}
+          >
             <View
               style={{
-                display: "flex",
-                flexDirection: "row",
-                // flexWrap: "wrap",
-                justifyContent: "space-between",
+                marginTop: cardGap,
+                // marginLeft: i % 2 !== 0 ? cardGap : 0,
+                width: "35%",
+                height: 130,
+                backgroundColor: "white",
+                borderRadius: 16,
+                // shadowOpacity: 0.1,
+                justifyContent: "center",
+                alignItems: "center",
+                borderColor: "#DEDEDE",
+                borderWidth: 1,
               }}
             >
-              <View
-                style={{
-                  marginTop: cardGap,
-                  // marginLeft: i % 2 !== 0 ? cardGap : 0,
-                  width: "35%",
-                  height: 130,
-                  backgroundColor: "white",
-                  borderRadius: 16,
-                  // shadowOpacity: 0.1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderColor: "#DEDEDE",
-                  borderWidth: 1,
-                }}
-              >
-                <TouchableOpacity>
-                  <Feather name="camera" size={24} color="#DEDEDE" />
-                </TouchableOpacity>
-              </View>
-              <View
-                style={{
-                  marginTop: cardGap,
-                  marginLeft: cardGap,
-                  width: "60%",
-                  height: 130,
-                  backgroundColor: "white",
-                  borderRadius: 16,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderColor: "#DEDEDE",
-                  borderWidth: 1,
-                }}
-              >
-                <TouchableOpacity>
-                  <Text>{`Please enter note`}</Text>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity>
+                <Feather name="camera" size={24} color="#DEDEDE" />
+              </TouchableOpacity>
             </View>
-          )}
+            <View
+              style={{
+                marginTop: cardGap,
+                marginLeft: cardGap,
+                width: "60%",
+                height: 130,
+                backgroundColor: "white",
+                borderRadius: 16,
+                // justifyContent: "center",
+                // alignItems: "center",
+                borderColor: "#DEDEDE",
+                borderWidth: 1,
+                padding: 8,
+              }}
+            >
+              <TouchableOpacity>
+                <Text
+                  style={{ color: "#5F5F5F", fontFamily: "mon-sb" }}
+                >{`請輸入備註`}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
         <View style={styles.advanced}>
-          <Text style={styles.info}>Advanced</Text>
+          <Text style={styles.info}>進階設定</Text>
           <AntDesign
-            name="caretup"
+            name={showAdvanced ? "caretup" : "caretdown"}
             size={16}
             color="black"
             style={{ marginTop: "auto" }}
-
-            // onPress={() => setShowAdvanced(!showAdvanced)}
+            onPress={() => setShowAdvanced(!showAdvanced)}
           />
         </View>
-        <View
-          style={{
-            display: "flex",
-            gap: 10,
-            marginTop: cardGap,
-            padding: 8,
-            width: "100%",
-            backgroundColor: "white",
-            borderRadius: 8,
-            paddingHorizontal: 16,
-            borderColor: "#DEDEDE",
-            borderWidth: 1,
-          }}
-        >
-          <Text style={styles.subText}>Project</Text>
-          <TextInput
-            style={styles.input}
-            // onChangeText={onChangeText}
-            // value={text}
-            placeholder="Please enter project"
-          />
-          <View style={{ display: "flex", flexDirection: "row", gap: 10 }}>
-            <View>
-              <Text style={styles.subText}>Invoice Number</Text>
+        {showAdvanced && (
+          <>
+            <View
+              style={{
+                display: "flex",
+                gap: 10,
+                marginTop: cardGap / 2,
+                padding: 8,
+                width: "100%",
+                backgroundColor: "white",
+                borderRadius: 8,
+                paddingHorizontal: 16,
+                paddingBottom: 16,
+                borderColor: "#DEDEDE",
+                borderWidth: 1,
+              }}
+            >
+              <Text style={styles.subText}>計畫</Text>
               <TextInput
-                style={styles.halfInput}
+                style={styles.input}
                 // onChangeText={onChangeText}
                 // value={text}
                 placeholder="Please enter project"
               />
+              <View style={{ display: "flex", flexDirection: "row", gap: 10 }}>
+                <View>
+                  <Text style={styles.subText}>Invoice Number</Text>
+                  <View
+                    style={
+                      {
+                        // display: "flex",
+                        // flexDirection: "row",
+                        // justifyContent: "space-between",
+                        // width: "50%",
+                      }
+                    }
+                  >
+                    <TextInput
+                      style={styles.halfInput}
+                      // onChangeText={onChangeText}
+                      // value={text}
+                      placeholder="Please enter project"
+                    />
+                    <MaterialCommunityIcons
+                      name="qrcode-scan"
+                      size={24}
+                      color="black"
+                      // color="#DEDEDE"
+                      style={{
+                        position: "absolute",
+                        top: 10,
+                        right: 10,
+                      }}
+                    />
+                  </View>
+                </View>
+                <View style={{}}>
+                  <Text style={styles.subText}>Invoice Number</Text>
+                  <TextInput
+                    style={styles.halfInput}
+                    // onChangeText={onChangeText}
+                    // value={text}
+                    placeholder="Please enter project"
+                  />
+                </View>
+              </View>
+              <View>
+                <Text style={styles.subText}>Location</Text>
+                <TextInput
+                  style={styles.input}
+                  // onChangeText={onChangeText}
+                  // value={text}
+                  placeholder="Please enter location"
+                />
+              </View>
             </View>
-            <View>
-              <Text style={styles.subText}>Invoice Number</Text>
-              <TextInput
-                style={styles.halfInput}
-                // onChangeText={onChangeText}
-                // value={text}
-                placeholder="Please enter project"
-              />
-            </View>
-          </View>
-          <View>
-            <Text style={styles.subText}>Location</Text>
-            <TextInput
-              style={styles.input}
-              // onChangeText={onChangeText}
-              // value={text}
-              placeholder="Please enter location"
-            />
-          </View>
-        </View>
+          </>
+        )}
       </ScrollView>
       <Modal isVisible={isModalVisible}>
         <Modal.Container>
-          <Modal.Header title="選擇分類" onClose={handl} />
+          <Modal.Header
+            title="選擇分類"
+            onClose={handleCloseModal}
+            onEdit={handleAddNewName}
+          />
           <Modal.Body>
             <View
               style={{
@@ -413,29 +500,88 @@ const ListingsMap = memo(({ listings }: Props) => {
                 flexDirection: "row",
                 justifyContent: "space-between",
                 // fontFamily: "mon-sb",
+                alignItems: "center",
+                flexWrap: "wrap",
               }}
             >
-              <Text style={{}}>主分類</Text>
-              <Text style={{}}>主分類</Text>
+              <View
+                style={{
+                  display: "flex",
+                  alignContent: "center",
+                  justifyContent: "center",
+                  margin: 10,
+                  width: "40%",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontFamily: "mon-sb", fontSize: 18 }}>
+                  主分類
+                </Text>
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  alignContent: "center",
+                  justifyContent: "center",
+                  margin: 10,
+                  width: "40%",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontFamily: "mon-sb", fontSize: 18 }}>
+                  子分類
+                </Text>
+              </View>
             </View>
-            <Text onPress={() => setModalVisible(false)}>close</Text>
+            <View
+              style={{
+                borderBottomColor: "#DEDEDE",
+                borderBottomWidth: StyleSheet.hairlineWidth,
+              }}
+            />
             <ScrollView>
-              <Text>123</Text>
-              <Text>123</Text>
-              <Text>123</Text>
-              <Text>123</Text>
-              <Text>123</Text>
-              <Text>123</Text>
-              <Text>123</Text>
-              <Text>123</Text>
-              <Text>123</Text>
-              <Text>123</Text>
-              <Text>123</Text>
+              <View>
+                <Row>
+                  <Col numRows={2}>
+                    {Array.from(Array(10)).map((i, k) => {
+                      return (
+                        <AppIcon key={k} isSelect={k === 0}>
+                          <MaterialIcons
+                            name="local-dining"
+                            size={24}
+                            color="white"
+                          />
+                        </AppIcon>
+                      );
+                    })}
+                  </Col>
+                  <Col numRows={2}>
+                    {Array.from(Array(10)).map((i, k) => {
+                      if (k === 10 - 1) {
+                        return (
+                          <CusPlusIcon key={k} isSelect={true} text="新增">
+                            <AntDesign name="plus" size={24} color="#fff" />
+                          </CusPlusIcon>
+                        );
+                      }
+                      return (
+                        <AppIcon key={k} isSelect={true} text="晚餐">
+                          <MaterialIcons
+                            name="local-dining"
+                            size={24}
+                            color="white"
+                          />
+                        </AppIcon>
+                      );
+                    })}
+                  </Col>
+                </Row>
+              </View>
             </ScrollView>
           </Modal.Body>
-          <Modal.Footer>
-            {/* <Button title="I agree" onPress={handleModal} /> */}
-          </Modal.Footer>
+          {/* <Modal.Footer>
+            <Button title="I agree" onPress={handleModal} />
+          </Modal.Footer> */}
         </Modal.Container>
       </Modal>
     </View>
@@ -490,6 +636,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginTop: cardGap * 2,
   },
   // container: {
   //   backgroundColor: "#fff",
@@ -558,7 +705,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    borderBottomColor: "#000",
+    borderBottomColor: "#0D9E00",
     borderBottomWidth: 2,
     paddingBottom: 8,
   },
@@ -588,6 +735,20 @@ const styles = StyleSheet.create({
     color: "#DEDEDE",
     fontWeight: "bold",
   },
+  twoColGrid: {
+    // backgroundColor: "green",
+    borderColor: "#fff",
+    borderWidth: 1,
+    flex: 2,
+    alignItems: "center",
+    marginVertical: 10,
+    // justifyContent: "center",
+    gap: 10,
+  },
+  row: {
+    // gap: 10,
+    flexDirection: "row",
+  },
 });
 
-export default ListingsMap;
+export default Page;
