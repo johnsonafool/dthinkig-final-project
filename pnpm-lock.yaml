@@ -17,6 +17,9 @@ dependencies:
   '@gorhom/bottom-sheet':
     specifier: ^4.5.1
     version: 4.5.1(@types/react-native@0.72.7)(@types/react@18.2.38)(react-native-gesture-handler@2.12.1)(react-native-reanimated@3.3.0)(react-native@0.72.4)(react@18.2.0)
+  '@react-native-community/datetimepicker':
+    specifier: 7.2.0
+    version: 7.2.0
   '@react-navigation/native':
     specifier: ^6.0.2
     version: 6.1.9(react-native@0.72.4)(react@18.2.0)
@@ -77,12 +80,18 @@ dependencies:
   react-native-maps:
     specifier: 1.7.1
     version: 1.7.1(react-native-web@0.19.9)(react-native@0.72.4)(react@18.2.0)
+  react-native-modal:
+    specifier: ^13.0.1
+    version: 13.0.1(react-native@0.72.4)(react@18.2.0)
   react-native-modern-datepicker:
     specifier: ^1.0.0-beta.91
     version: 1.0.0-beta.91(react-native@0.72.4)
   react-native-reanimated:
     specifier: 3.3.x
     version: 3.3.0(@babel/core@7.23.3)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.72.4)(react@18.2.0)
+  react-native-reanimated-carousel:
+    specifier: ^3.5.1
+    version: 3.5.1(react-native-gesture-handler@2.12.1)(react-native-reanimated@3.3.0)(react-native@0.72.4)(react@18.2.0)
   react-native-safe-area-context:
     specifier: 4.6.3
     version: 4.6.3(react-native@0.72.4)(react@18.2.0)
@@ -1813,7 +1822,7 @@ packages:
       getenv: 1.0.0
       glob: 7.1.6
       resolve-from: 5.0.0
-      semver: 7.5.3
+      semver: 7.5.4
       slash: 3.0.0
       xcode: 3.0.1
       xml2js: 0.6.0
@@ -1836,7 +1845,7 @@ packages:
       getenv: 1.0.0
       glob: 7.1.6
       resolve-from: 5.0.0
-      semver: 7.5.3
+      semver: 7.5.4
       slash: 3.0.0
       xcode: 3.0.1
       xml2js: 0.6.0
@@ -2747,6 +2756,12 @@ packages:
       - encoding
       - supports-color
       - utf-8-validate
+
+  /@react-native-community/datetimepicker@7.2.0:
+    resolution: {integrity: sha512-dO1sQy83M/EvnHE2egto05iwXZX7EYn5f/VDMp6afZFRFXRiRo7CzB3VFg4B55gJRJMNBv06NYMLPM3SlpnEGQ==}
+    dependencies:
+      invariant: 2.2.4
+    dev: false
 
   /@react-native/assets-registry@0.72.0:
     resolution: {integrity: sha512-Im93xRJuHHxb1wniGhBMsxLwcfzdYreSZVQGDoMJgkd6+Iky61LInGEHnQCTN0fKNYF1Dvcofb4uMmE1RQHXHQ==}
@@ -7811,6 +7826,12 @@ packages:
   /react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
 
+  /react-native-animatable@1.3.3:
+    resolution: {integrity: sha512-2ckIxZQAsvWn25Ho+DK3d1mXIgj7tITkrS4pYDvx96WyOttSvzzFeQnM2od0+FUMzILbdHDsDEqZvnz1DYNQ1w==}
+    dependencies:
+      prop-types: 15.8.1
+    dev: false
+
   /react-native-gesture-handler@2.12.1(react-native@0.72.4)(react@18.2.0):
     resolution: {integrity: sha512-deqh36bw82CFUV9EC4tTo2PP1i9HfCOORGS3Zmv71UYhEZEHkzZv18IZNPB+2Awzj45vLIidZxGYGFxHlDSQ5A==}
     peerDependencies:
@@ -7854,6 +7875,18 @@ packages:
       react-native-web: 0.19.9(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
+  /react-native-modal@13.0.1(react-native@0.72.4)(react@18.2.0):
+    resolution: {integrity: sha512-UB+mjmUtf+miaG/sDhOikRfBOv0gJdBU2ZE1HtFWp6UixW9jCk/bhGdHUgmZljbPpp0RaO/6YiMmQSSK3kkMaw==}
+    peerDependencies:
+      react: '*'
+      react-native: '>=0.65.0'
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-native: 0.72.4(@babel/core@7.23.3)(@babel/preset-env@7.23.3)(react@18.2.0)
+      react-native-animatable: 1.3.3
+    dev: false
+
   /react-native-modern-datepicker@1.0.0-beta.91(react-native@0.72.4):
     resolution: {integrity: sha512-tyyS6iswwxn/CWIgk9j82X5/9gkgAQuI4fiWa+TEWjOo1WIhBr0x7914mtagrVuVgJCMRnHCopCIWL78afakHw==}
     peerDependencies:
@@ -7862,6 +7895,20 @@ packages:
       moment-jalaali: 0.9.6
       prop-types: 15.8.1
       react-native: 0.72.4(@babel/core@7.23.3)(@babel/preset-env@7.23.3)(react@18.2.0)
+    dev: false
+
+  /react-native-reanimated-carousel@3.5.1(react-native-gesture-handler@2.12.1)(react-native-reanimated@3.3.0)(react-native@0.72.4)(react@18.2.0):
+    resolution: {integrity: sha512-9BBQV6JAYSQm2lV7MFtT4mzapXmW4IZO6s38gfiJL84Jg23ivGB1UykcNQauKgtHyhtW2NuZJzItb1s42lM+hA==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-native: '>=0.6.0'
+      react-native-gesture-handler: '>=2.0.0'
+      react-native-reanimated: '>=3.0.0'
+    dependencies:
+      react: 18.2.0
+      react-native: 0.72.4(@babel/core@7.23.3)(@babel/preset-env@7.23.3)(react@18.2.0)
+      react-native-gesture-handler: 2.12.1(react-native@0.72.4)(react@18.2.0)
+      react-native-reanimated: 3.3.0(@babel/core@7.23.3)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.72.4)(react@18.2.0)
     dev: false
 
   /react-native-reanimated@3.3.0(@babel/core@7.23.3)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.23.3)(@babel/plugin-transform-shorthand-properties@7.23.3)(@babel/plugin-transform-template-literals@7.23.3)(react-native@0.72.4)(react@18.2.0):
