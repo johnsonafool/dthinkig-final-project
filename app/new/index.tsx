@@ -18,7 +18,7 @@ import AppIcon, { CusPlusIcon } from "@/components/AppIcon";
 
 // RN Code
 export const Col = ({ numRows, children }: { numRows: any; children: any }) => {
-  return <View style={styles.twoColGrid}>{children}</View>;
+  return <View style={styles[`${numRows}col`]}>{children}</View>;
 };
 
 export const Row = ({ children }: { children: any }) => (
@@ -141,35 +141,6 @@ const Page = memo(({ listings }: Props) => {
   };
 
   return (
-    // <View style={defaultStyles.container}>
-    //   <MapView
-    //     ref={mapRef}
-    //     animationEnabled={false}
-    //     style={StyleSheet.absoluteFillObject}
-    //     initialRegion={INITIAL_REGION}
-    //     clusterColor="#fff"
-    //     clusterTextColor="#000"
-    //     clusterFontFamily="mon-sb"
-    //     renderCluster={renderCluster}>
-    //     {/* Render all our marker as usual */}
-    //     {listings.features.map((item: any) => (
-    //       <Marker
-    //         coordinate={{
-    //           latitude: item.properties.latitude,
-    //           longitude: item.properties.longitude,
-    //         }}
-    //         key={item.properties.id}
-    //         onPress={() => onMarkerSelected(item)}>
-    //         <View style={styles.marker}>
-    //           <Text style={styles.markerText}>€ {item.properties.price}</Text>
-    //         </View>
-    //       </Marker>
-    //     ))}
-    //   </MapView>
-    //   <TouchableOpacity style={styles.locateBtn} onPress={onLocateMe}>
-    //     <Ionicons name="navigate" size={24} color={Colors.dark} />
-    //   </TouchableOpacity>
-    // </View>
     <View style={styles.container}>
       <View>
         <ScrollView
@@ -736,18 +707,50 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   twoColGrid: {
-    // backgroundColor: "green",
     borderColor: "#fff",
     borderWidth: 1,
     flex: 2,
     alignItems: "center",
     marginVertical: 10,
-    // justifyContent: "center",
     gap: 10,
   },
   row: {
     // gap: 10,
     flexDirection: "row",
+  },
+  app: {
+    flex: 4, // the number of columns you want to devide the screen into
+    marginHorizontal: "auto",
+    width: 400,
+    backgroundColor: "red",
+  },
+  // row: {
+  //   flexDirection: "row",
+  // },
+  "1col": {
+    backgroundColor: "lightblue",
+    borderColor: "#fff",
+    borderWidth: 1,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  "2col": {
+    // backgroundColor: "green",
+    borderColor: "#fff",
+    borderWidth: 1,
+    flex: 2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  "3col": {
+    backgroundColor: "orange",
+    borderColor: "#fff",
+    borderWidth: 1,
+    flex: 3,
+  },
+  "4col": {
+    flex: 4,
   },
 });
 

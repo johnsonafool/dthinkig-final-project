@@ -7,25 +7,7 @@ import * as Progress from "react-native-progress";
 type Props = {};
 
 const AppProgressBar = (props: Props) => {
-  //   const countInterval = useRef(null as any);
-  //   const [count, setCount] = useState(0);
-
-  //   useEffect(() => {
-  //     countInterval.current = setInterval(() => setCount((old) => old + 5), 1000);
-  //     return () => {
-  //       clearInterval(countInterval as any); //when user exits, clear this interval.
-  //     };
-  //   }, []);
-
-  return (
-    <View>
-      {/* <Text>Loading.....</Text>
-      <View style={styles.progressBar}>
-        <View style={{ backgroundColor: "#8BED4F", width: "50%" }} />
-      </View> */}
-      <Progress.Bar progress={0.3} width={200} />
-    </View>
-  );
+  return <Progress.Bar progress={0.3} width={100} color="#0D9E00" />;
 };
 
 export default AppProgressBar;

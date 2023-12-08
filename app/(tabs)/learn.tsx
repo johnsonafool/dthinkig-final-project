@@ -55,20 +55,10 @@ const Page = () => {
   const scrollRef = useRef<ScrollView>(null);
   const itemsRef = useRef<Array<TouchableOpacity | null>>([]);
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const selectCategory = (index: number) => {
-    const selected = itemsRef.current[index];
-    setActiveIndex(index);
-    selected?.measure((x) => {
-      scrollRef.current?.scrollTo({ x: x - 16, y: 0, animated: true });
-    });
-    // Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    // onCategoryChanged(categories[index].name);
-  };
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
-  // const RenderRow = ({ item, text }: { item: any; text?: string }) => (
   const RenderRow = ({ avaImg, postImg, title }: RenderRowProps) => (
     // <Link href={`/listing/${item.id}`} asChild>
     <TouchableOpacity>
@@ -94,9 +84,7 @@ const Page = () => {
           />
           <TouchableOpacity
             style={{ position: "absolute", right: 30, top: 30 }}
-          >
-            {/* <Ionicons name="heart-outline" size={24} color="#000" /> */}
-          </TouchableOpacity>
+          ></TouchableOpacity>
           <View style={{ flexDirection: "row", display: "flex" }}>
             <View
               style={{
@@ -106,8 +94,6 @@ const Page = () => {
                 padding: 10,
               }}
             >
-              {/* <Ionicons name="star" size={16} />
-                <Text style={{ fontFamily: "mon-sb" }}>{20}</Text> */}
               <Image
                 style={styles.avatarImage}
                 source={{
@@ -115,7 +101,7 @@ const Page = () => {
                     avaImg ??
                     "https://images.unsplash.com/photo-1609741199878-3e8ebdb1dbc7?q=80&w=3027&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 }}
-                resizeMode={"cover"} // <- needs to be "cover" for borderRadius to take effect on Android
+                resizeMode={"cover"}
               />
             </View>
             <View
@@ -143,10 +129,6 @@ const Page = () => {
     // </Link>
   );
 
-  const toggleVidOrArt = () => {
-    return isEnabled ? "Video Mode" : "Article Mode";
-  };
-
   return (
     <SafeAreaView style={defaultStyles.container}>
       <View style={styles.headerContainer}>
@@ -161,9 +143,6 @@ const Page = () => {
           <Text style={isEnabled ? styles.header : styles.headerArticles}>
             {isEnabled ? `文章` : `影片`}
           </Text>
-          {/* <Text style={{ color: "#000000", fontSize: 16, fontFamily: "mon-b" }}>
-            Learn
-          </Text> */}
           <Text style={{ color: "#000000", fontSize: 16, fontFamily: "mon-b" }}>
             {isEnabled ? `影片` : `文章`}
           </Text>

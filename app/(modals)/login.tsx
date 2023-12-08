@@ -204,13 +204,11 @@ const Page = () => {
   } else if (isShowingTutorial) {
     return (
       <Animated.View
-        // style={{ display: "flex", alignItems: "center", gap: 10 }}
         entering={FadeInRight}
         exiting={FadeOutLeft}
         style={styles.containerTwo}
       >
         <View style={styles.stepsFlexContainer}>
-          {/* <Text>Welcome to Use ClimbFin</Text> */}
           <View
             style={{
               display: "flex",
@@ -220,24 +218,19 @@ const Page = () => {
             }}
           >
             <Text style={styles.welcomeText}>歡迎使用 ClimbFin</Text>
-            <Text style={styles.welcomeDesc}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </Text>
-            <Animated.View
-              // style={{ display: "flex", alignItems: "center", gap: 10 }}
-              // entering={FadeInDown}
-              // exiting={FadeOutUp}
-              style={{}}
-            >
-              <View style={{}}>
-                {/* photot */}
-                <Image
-                  style={{ width: 250, height: 250 }}
-                  source={require("./White_Green_Simple_and_Professional_Business_Pitch_Deck_Presentation.png")}
-                />
-              </View>
-            </Animated.View>
+            <View>
+              <Text style={styles.welcomeDesc}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </Text>
+            </View>
+
+            <View>
+              <Image
+                style={{ width: 250, height: 250 }}
+                source={require("./White_Green_Simple_and_Professional_Business_Pitch_Deck_Presentation.png")}
+              />
+            </View>
 
             <View>
               <Carousel
@@ -279,11 +272,6 @@ const Page = () => {
                             style={styles.welcomeDesc}
                           >{`${STEPS[index]}`}</Text>
                         </View>
-                        <View>{/* <Text>{`Step ${index + 1}`}</Text> */}</View>
-                        {/* <Image
-                        style={{ width: 250, height: 250 }}
-                        source={require("./White_Green_Simple_and_Professional_Business_Pitch_Deck_Presentation.png")}
-                      /> */}
                       </View>
                     </View>
                   );
@@ -384,10 +372,12 @@ const Page = () => {
               scrollAnimationDuration={1200}
             />
           </Animated.View>
-          <Text style={styles.welcomeDesc}>
-            {`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          <View>
+            <Text style={styles.welcomeDesc}>
+              {`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.`}
-          </Text>
+            </Text>
+          </View>
         </Animated.View>
         <View style={{ gap: 20, marginTop: 40 }}>
           <TouchableOpacity style={styles.btnOutlineMain}>

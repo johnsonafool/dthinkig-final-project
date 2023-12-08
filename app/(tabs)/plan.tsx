@@ -11,20 +11,20 @@ import {
 } from "react-native";
 import React from "react";
 import { defaultStyles } from "@/constants/Styles";
-import { Octicons } from "@expo/vector-icons";
-import Animated from "react-native-reanimated";
+import { FontAwesome, Octicons } from "@expo/vector-icons";
+import Animated, { FadeInRight, FadeOutLeft } from "react-native-reanimated";
 import { Col, Row } from "../new";
 import { cardWidth } from "@/components/Listings";
 import ProgressBar from "@/components/ProgressBar";
+import { useRouter } from "expo-router";
 
-// const RenderRow = ({ item, text }: { item: any; text?: string }) => (
-const RenderRow = ({ avaImg, postImg, title }: any) => (
+const RenderGrid = ({ avaImg, postImg, title }: any) => (
   // <Link href={`/listing/${item.id}`} asChild>
   <TouchableOpacity>
     <Animated.View
       style={styles.listing}
-      // entering={FadeInRight}
-      // exiting={FadeOutLeft}
+      entering={FadeInRight}
+      exiting={FadeOutLeft}
     >
       <View
         style={{
@@ -38,14 +38,13 @@ const RenderRow = ({ avaImg, postImg, title }: any) => (
       >
         <Animated.Image
           source={{
-            // uri: "https://a0.muscache.com/im/pictures/bced1392-9538-41df-92d9-f058a7188b0f.jpg?aki_policy=medium",
             uri: postImg,
           }}
           style={styles.image}
         />
-        <TouchableOpacity style={{ position: "absolute", right: 30, top: 30 }}>
-          {/* <Ionicons name="heart-outline" size={24} color="#000" /> */}
-        </TouchableOpacity>
+        {/* <TouchableOpacity
+          style={{ position: "absolute", right: 30, top: 30 }}
+        ></TouchableOpacity> */}
         <View style={{ display: "flex", padding: 10, gap: 10 }}>
           <View
             style={{
@@ -58,16 +57,16 @@ const RenderRow = ({ avaImg, postImg, title }: any) => (
           >
             <Text
               style={{
-                fontSize: 16,
+                fontSize: 20,
                 fontFamily: "mon-sb",
               }}
             >
-              {`旅遊`}
+              {title}
             </Text>
             <Text
               style={{
-                fontSize: 16,
                 fontFamily: "mon-sb",
+                color: "#0D9E00",
               }}
             >
               {`$45,000`}
@@ -82,15 +81,8 @@ const RenderRow = ({ avaImg, postImg, title }: any) => (
               width: "100%",
             }}
           >
-            {/* <Text
-              style={{
-                fontSize: 16,
-                fontFamily: "mon-sb",
-              }}
-            >
-              {`60%`}
-            </Text> */}
             <ProgressBar />
+            <Text style={{ fontFamily: "mon-b" }}>30%</Text>
           </View>
         </View>
       </View>
@@ -99,39 +91,109 @@ const RenderRow = ({ avaImg, postImg, title }: any) => (
   // </Link>
 );
 
+const AddPlanGrid = ({ avaImg, postImg, title }: any) => {
+  const router = useRouter();
+  return (
+    // <Link href={`/listing/${item.id}`} asChild>
+    <TouchableOpacity>
+      <Animated.View
+        style={styles.listing}
+        entering={FadeInRight}
+        exiting={FadeOutLeft}
+      >
+        <View
+          style={{
+            display: "flex",
+            gap: 10,
+            borderColor: "#D9D9D9",
+            borderWidth: 1,
+            borderRadius: 10,
+            width: cardWidth,
+            backgroundColor: "#CEEAC5",
+          }}
+        >
+          <Animated.Image
+            source={{
+              uri: postImg,
+            }}
+            style={styles.imageTwo}
+          />
+          <TouchableOpacity
+            style={{ position: "absolute", right: 65, top: 90 }}
+            onPress={() => router.push("/new/add-new")}
+          >
+            <FontAwesome name="plus" size={48} color="white" />
+          </TouchableOpacity>
+          <View style={{ display: "flex", padding: 10, gap: 10 }}>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontFamily: "mon-sb",
+                  color: "transparent",
+                }}
+              >
+                {title}
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "mon-sb",
+                  color: "transparent",
+                  // color: "#0D9E00",
+                }}
+              >
+                {`$45,000`}
+              </Text>
+            </View>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
+              {/* <ProgressBar /> */}
+              <Text style={{ fontFamily: "mon-b", color: "transparent" }}>
+                30%
+              </Text>
+            </View>
+          </View>
+        </View>
+      </Animated.View>
+    </TouchableOpacity>
+    // </Link>
+  );
+};
+
+const InfoGrid = ({ avaImg, postImg, title }: any) => {
+  const router = useRouter();
+  return (
+    // <Link href={`/listing/${item.id}`} asChild>
+    <TouchableOpacity>
+      <Animated.View
+        style={styles.listing}
+        entering={FadeInRight}
+        exiting={FadeOutLeft}
+      >
+        <Text>134</Text>
+      </Animated.View>
+    </TouchableOpacity>
+    // </Link>
+  );
+};
+
 const Page = () => {
-  const subjects = [
-    {
-      id: 1,
-      name: "旅遊",
-      url: "https://media.istockphoto.com/id/1164049513/photo/airplane-taking-off-from-the-airport.webp?b=1&s=170667a&w=0&k=20&c=ZL25hKR74ZmYpOgrpHjAphEEJpwcOPuV1FSU0v-Gky8=",
-    },
-    {
-      id: 2,
-      name: "教育",
-      url: "https://media.istockphoto.com/id/1164049513/photo/airplane-taking-off-from-the-airport.webp?b=1&s=170667a&w=0&k=20&c=ZL25hKR74ZmYpOgrpHjAphEEJpwcOPuV1FSU0v-Gky8=",
-    },
-    { id: 3, name: "Card 3" },
-    {
-      id: 4,
-      name: "整牙",
-      url: "https://media.istockphoto.com/id/1164049513/photo/airplane-taking-off-from-the-airport.webp?b=1&s=170667a&w=0&k=20&c=ZL25hKR74ZmYpOgrpHjAphEEJpwcOPuV1FSU0v-Gky8=",
-    },
-    // {
-    //   id: 5,
-    //   name: "Card 3",
-    //   url: "https://media.istockphoto.com/id/1164049513/photo/airplane-taking-off-from-the-airport.webp?b=1&s=170667a&w=0&k=20&c=ZL25hKR74ZmYpOgrpHjAphEEJpwcOPuV1FSU0v-Gky8=",
-    // },
-    // {
-    //   id: 6,
-    //   name: "Card 4",
-    //   url: "https://media.istockphoto.com/id/1164049513/photo/airplane-taking-off-from-the-airport.webp?b=1&s=170667a&w=0&k=20&c=ZL25hKR74ZmYpOgrpHjAphEEJpwcOPuV1FSU0v-Gky8=",
-    // },
-  ];
-
   const cardGap = 16;
-
-  const cardWidth = (Dimensions.get("window").width - cardGap * 3) / 2;
 
   return (
     <SafeAreaView style={defaultStyles.container}>
@@ -144,84 +206,44 @@ const Page = () => {
       </View>
       <View style={styles.lineStyle} />
       <ScrollView>
-        <View
-          // style={{
-          //   flexDirection: "row",
-          //   flexWrap: "wrap",
-          //   justifyContent: "center",
-          // }}
-          style={styles.grid}
-        >
+        <View style={styles.grid}>
           <Row>
             <Col numRows={2}>
-              <RenderRow
-                // item={[]}
-                // text="ETF是什麼？怎麼買？認識台股最紅兩支ETF，被動投資學習"
-                title="ETF是什麼？怎麼買？認識台股最紅兩支ETF，被動投資學習"
-                postImg="https://media.istockphoto.com/id/1442529985/photo/business-partners-in-meeting.webp?b=1&s=170667a&w=0&k=20&c=jJOruR74VemjhH9_C3o4sbpVevuMB99zNTymWq6FUfc="
+              <RenderGrid
+                title="旅遊"
+                postImg="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D"
               />
             </Col>
             <Col numRows={2}>
-              <RenderRow
-                // item={[]}
-                // text="ETF是什麼？怎麼買？認識台股最紅兩支ETF，被動投資學習"
-                title="ETF是什麼？怎麼買？認識台股最紅兩支ETF，被動投資學習"
-                postImg="https://media.istockphoto.com/id/1442529985/photo/business-partners-in-meeting.webp?b=1&s=170667a&w=0&k=20&c=jJOruR74VemjhH9_C3o4sbpVevuMB99zNTymWq6FUfc="
+              <RenderGrid
+                title="教育"
+                postImg="https://media.istockphoto.com/id/1431839160/photo/university-campus-and-young-japanese-student.webp?b=1&s=170667a&w=0&k=20&c=R6y034F0VX_S4A30SBV7yxn6ROaC_4Gy3xORHIQQv_A="
               />
             </Col>
           </Row>
           <Row>
             <Col numRows={2}>
-              <RenderRow
-                // item={[]}
-                // text="ETF是什麼？怎麼買？認識台股最紅兩支ETF，被動投資學習"
-                title="ETF是什麼？怎麼買？認識台股最紅兩支ETF，被動投資學習"
-                postImg="https://media.istockphoto.com/id/1442529985/photo/business-partners-in-meeting.webp?b=1&s=170667a&w=0&k=20&c=jJOruR74VemjhH9_C3o4sbpVevuMB99zNTymWq6FUfc="
+              <RenderGrid
+                title="整牙"
+                postImg="https://media.istockphoto.com/id/1468244705/photo/close-up-of-dentist-using-dental-drill-while-working-with-patient-at-dental-clinic.webp?b=1&s=170667a&w=0&k=20&c=QzZBcv9jjQfFX5AGQVD4m8AHQeXrM7X9ysAq-989Bmw="
               />
             </Col>
             <Col numRows={2}>
-              <RenderRow
-                // item={[]}
-                // text="ETF是什麼？怎麼買？認識台股最紅兩支ETF，被動投資學習"
-                title="ETF是什麼？怎麼買？認識台股最紅兩支ETF，被動投資學習"
+              <AddPlanGrid
+                title="AddNew"
                 postImg="https://media.istockphoto.com/id/1442529985/photo/business-partners-in-meeting.webp?b=1&s=170667a&w=0&k=20&c=jJOruR74VemjhH9_C3o4sbpVevuMB99zNTymWq6FUfc="
               />
             </Col>
           </Row>
-          {subjects.map((subject, i) => {
-            return (
-              <></>
-              // <View
-              //   key={subject.id}
-              //   style={{
-              //     marginTop: cardGap,
-              //     marginLeft: i % 2 !== 0 ? cardGap : 0,
-              //     // width: cardWidth,
-              //     height: cardWidth * 1.38,
-              //     backgroundColor: "white",
-              //     // backgroundColor: "red",
-              //     borderRadius: 16,
-              //     shadowOpacity: 0.1,
-              //     justifyContent: "center",
-              //     alignItems: "center",
-              //   }}
-              // >
-              //   <TouchableOpacity>
-              //     <View style={{ backgroundColor: "blue", width: cardWidth }}>
-              //       <Animated.Image
-              //         source={{
-              //           uri: "https://media.istockphoto.com/id/1442529985/photo/business-partners-in-meeting.webp?b=1&s=170667a&w=0&k=20&c=jJOruR74VemjhH9_C3o4sbpVevuMB99zNTymWq6FUfc=",
-              //         }}
-              //         style={styles.image}
-              //       />
-              //     </View>
-              //     <Text style={{ backgroundColor: "blue" }}>
-              //       {subject.name}
-              //     </Text>
-              //   </TouchableOpacity>
-              // </View>
-            );
-          })}
+
+          <Row>
+            <Col numRows={1}>
+              <InfoGrid
+                title="info"
+                postImg="https://media.istockphoto.com/id/1468244705/photo/close-up-of-dentist-using-dental-drill-while-working-with-patient-at-dental-clinic.webp?b=1&s=170667a&w=0&k=20&c=QzZBcv9jjQfFX5AGQVD4m8AHQeXrM7X9ysAq-989Bmw="
+              />
+            </Col>
+          </Row>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -250,34 +272,29 @@ const styles = StyleSheet.create({
     margin: 24,
   },
   listing: {
-    padding: 16,
+    // padding: 16,
     gap: 10,
-    marginVertical: 16,
+    marginVertical: 8,
   },
   image: {
     width: "100%",
     height: 150,
-    // borderRadius: 10,
   },
-  ////////////////////////////
-  // lineStyle: {
-  //   borderWidth: 0.5,
-  //   borderColor: "#D9D9D9",
-  //   marginHorizontal: 24,
-  //   marginBottom: 16,
-  // },
+  imageTwo: {
+    width: "100%",
+    height: 150,
+    opacity: 0,
+  },
+
   avatarImage: {
     width: 40,
     height: 40,
-    // borderColor: "red",
-    // borderWidth: 2,
     borderRadius: 75,
   },
   grid: {
-    flex: 4, // the number of columns you want to devide the screen into
+    flex: 4,
     marginHorizontal: "auto",
     width: 400,
-    // backgroundColor: "red",
   },
 });
 
