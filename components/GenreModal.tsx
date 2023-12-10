@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
+import { StyleSheet, View, Text, Button, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 
@@ -48,11 +48,13 @@ const ModalHeader = ({
   onEdit: () => void;
 }) => (
   <View style={styles.header}>
-    {/* <Text style={styles.text}>close</Text> */}
-    <AntDesign name="close" size={24} color="black" onPress={onClose} />
+    <TouchableOpacity onPress={onClose}>
+      <AntDesign name="close" size={24} color="black" />
+    </TouchableOpacity>
     <Text style={styles.text}>{title}</Text>
-    {/* <Text style={styles.text}>edit</Text> */}
-    <FontAwesome5 name="pen" size={20} color="black" onPress={onEdit} />
+    <TouchableOpacity onPress={onEdit}>
+      <FontAwesome5 name="pen" size={20} color="black" />
+    </TouchableOpacity>
   </View>
 );
 

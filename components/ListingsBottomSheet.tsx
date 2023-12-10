@@ -39,7 +39,7 @@ const ListingsBottomSheet = ({ listings, category }: Props) => {
           onPress={() => router.push("/new/")}
           style={styles.btn}
         >
-          <Text style={{ fontFamily: "mon-sb", color: "#fff" }}>Add</Text>
+          {/* <Text style={{ fontFamily: "mon-sb", color: "#fff" }}>Add</Text> */}
           {/* <Ionicons
               name="plus"
               size={20}
@@ -49,7 +49,7 @@ const ListingsBottomSheet = ({ listings, category }: Props) => {
           <AntDesign
             name="plus"
             size={20}
-            style={{ marginLeft: 10 }}
+            // style={{ marginLeft: 10 }}
             color={"#fff"}
           />
         </TouchableOpacity>

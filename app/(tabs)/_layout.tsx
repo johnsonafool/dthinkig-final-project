@@ -1,7 +1,10 @@
 import { Tabs } from "expo-router";
 import { FontAwesome, Ionicons, Octicons } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+
+import Test from "@/assets/icon/learn_Vector.svg";
+import Plan from "@/assets/icon/plan_Vector.svg";
+import Profile from "@/assets/icon/profile_Vector.svg";
+import Record from "@/assets/icon/record_Vector.svg";
 
 const Layout = () => {
   return (
@@ -11,6 +14,7 @@ const Layout = () => {
         tabBarLabelStyle: {
           fontFamily: "mon-sb",
         },
+        tabBarInactiveTintColor: "black",
       }}
     >
       <Tabs.Screen
@@ -18,7 +22,7 @@ const Layout = () => {
         options={{
           tabBarLabel: "記帳",
           tabBarIcon: ({ size, color }) => (
-            <MaterialIcons name="sticky-note-2" size={size} color={color} />
+            <Record name="sticky-note-2" size={size} color={color} />
           ),
         }}
       />
@@ -29,8 +33,7 @@ const Layout = () => {
           tabBarLabel: "計畫",
           headerShown: false,
           tabBarIcon: ({ size, color }) => (
-            // <Ionicons name="heart-outline" size={size} color={color} />
-            <Octicons name="project" size={24} size={size} color={color} />
+            <Plan name="project" size={24} color={color} />
           ),
         }}
       />
@@ -40,7 +43,7 @@ const Layout = () => {
           tabBarLabel: "學習",
           headerShown: false,
           tabBarIcon: ({ size, color }) => (
-            <FontAwesome name="book" size={size} color={color} />
+            <Test name="book" size={size} color={color} />
           ),
         }}
       />
@@ -52,7 +55,7 @@ const Layout = () => {
 
           headerShown: false,
           tabBarIcon: ({ size, color }) => (
-            <Ionicons name="person-circle-outline" size={size} color={color} />
+            <Profile name="person-circle-outline" size={size} color={color} />
           ),
         }}
       />

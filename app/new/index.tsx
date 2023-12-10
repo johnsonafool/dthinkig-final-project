@@ -15,6 +15,19 @@ import { Modal } from "@/components/GenreModal";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppIcon, { CusPlusIcon } from "@/components/AppIcon";
+// import DropDownPicker from "react-native-dropdown-picker";
+import { Dropdown } from "react-native-element-dropdown";
+
+const data = [
+  { label: "無特別計畫", value: "1" },
+  { label: "旅遊", value: "2" },
+  { label: "教育", value: "3" },
+  { label: "整牙", value: "4" },
+  // { label: "Item 5", value: "5" },
+  // { label: "Item 6", value: "6" },
+  // { label: "Item 7", value: "7" },
+  // { label: "Item 8", value: "8" },
+];
 
 // RN Code
 export const Col = ({ numRows, children }: { numRows: any; children: any }) => {
@@ -59,9 +72,30 @@ const Page = memo(({ listings }: Props) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [showAdvanced, setShowAdvanced] = useState<boolean>(true);
+  const [showAdvanced, setShowAdvanced] = useState<boolean>(false);
   const [isModalVisible, setModalVisible] = useState(false);
   const [day, setDay] = useState(10);
+  const [open, setOpen] = useState(false);
+  // const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    { label: "Apple", value: "apple" },
+    { label: "Banana", value: "banana" },
+    { label: "Pear", value: "pear" },
+  ]);
+
+  const [value, setValue] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
+
+  const renderLabel = () => {
+    if (value || isFocus) {
+      return (
+        <Text style={[styles.label, isFocus && { color: "blue" }]}>
+          Dropdown label
+        </Text>
+      );
+    }
+    return null;
+  };
 
   const selectCategory = (index: number) => {
     const selected = itemsRef.current[index];
@@ -195,8 +229,8 @@ const Page = memo(({ listings }: Props) => {
             <View
               style={{
                 marginLeft: 0,
-                width: cardWidth / 1.5,
-                height: cardWidth / 1.5,
+                width: cardWidth / 1.4,
+                height: cardWidth / 1.4,
                 backgroundColor: "white",
                 borderRadius: 16,
                 justifyContent: "center",
@@ -204,6 +238,7 @@ const Page = memo(({ listings }: Props) => {
                 borderColor: "#DEDEDE",
                 borderWidth: 1,
                 gap: 4,
+                // padding: 20,
               }}
             >
               <View
@@ -221,6 +256,7 @@ const Page = memo(({ listings }: Props) => {
               <Text
                 style={{ fontFamily: "mon-b", fontSize: 16 }}
               >{`早餐`}</Text>
+              <AntDesign name={"down"} size={16} color="black" />
             </View>
             <View
               style={{
@@ -370,13 +406,15 @@ const Page = memo(({ listings }: Props) => {
         </View>
         <View style={styles.advanced}>
           <Text style={styles.info}>進階設定</Text>
-          <AntDesign
-            name={showAdvanced ? "caretup" : "caretdown"}
-            size={16}
-            color="black"
-            style={{ marginTop: "auto" }}
-            onPress={() => setShowAdvanced(!showAdvanced)}
-          />
+          <TouchableOpacity onPress={() => setShowAdvanced(!showAdvanced)}>
+            <AntDesign
+              name={showAdvanced ? "caretup" : "caretdown"}
+              size={16}
+              color="black"
+              style={{ marginTop: "auto" }}
+              // onPress={() => setShowAdvanced(!showAdvanced)}
+            />
+          </TouchableOpacity>
         </View>
         {showAdvanced && (
           <>
@@ -395,62 +433,97 @@ const Page = memo(({ listings }: Props) => {
                 borderWidth: 1,
               }}
             >
-              <Text style={styles.subText}>計畫</Text>
-              <TextInput
-                style={styles.input}
-                // onChangeText={onChangeText}
-                // value={text}
-                placeholder="Please enter project"
-              />
-              <View style={{ display: "flex", flexDirection: "row", gap: 10 }}>
-                <View>
-                  <Text style={styles.subText}>Invoice Number</Text>
-                  <View
-                    style={
-                      {
-                        // display: "flex",
-                        // flexDirection: "row",
-                        // justifyContent: "space-between",
-                        // width: "50%",
-                      }
+              <View>
+                <Text style={styles.subText}>計畫</Text>
+                {/* <TextInput
+                  style={styles.input}
+                  // onChangeText={onChangeText}
+                  // value={text}
+                  placeholder="Please enter project"
+                /> */}
+                {/* {renderLabel()} */}
+                <Dropdown
+                  style={[
+                    styles.dropdown,
+                    isFocus && { borderColor: "#DEDEDE" },
+                  ]}
+                  placeholderStyle={styles.placeholderStyle}
+                  selectedTextStyle={styles.selectedTextStyle}
+                  inputSearchStyle={styles.inputSearchStyle}
+                  iconStyle={styles.iconStyle}
+                  data={data}
+                  // search
+                  // maxHeight={300}
+                  labelField="label"
+                  valueField="value"
+                  placeholder={!isFocus ? "無特別計畫" : "..."}
+                  searchPlaceholder="Search..."
+                  value={value}
+                  onFocus={() => setIsFocus(true)}
+                  onBlur={() => setIsFocus(false)}
+                  onChange={(item) => {
+                    setValue(item.value);
+                    setIsFocus(false);
+                  }}
+                  // renderLeftIcon={() => (
+                  //   <AntDesign
+                  //     style={styles.icon}
+                  //     color={isFocus ? "blue" : "black"}
+                  //     name="Safety"
+                  //     size={20}
+                  //   />
+                  // )}
+                />
+              </View>
+              {/* <View style={{ display: "flex", flexDirection: "row", gap: 10 }}> */}
+              <View>
+                <Text style={styles.subText}>發票號碼</Text>
+                <View
+                  style={
+                    {
+                      // display: "flex",
+                      // flexDirection: "row",
+                      // justifyContent: "space-between",
+                      // width: "50%",
                     }
-                  >
-                    <TextInput
-                      style={styles.halfInput}
-                      // onChangeText={onChangeText}
-                      // value={text}
-                      placeholder="Please enter project"
-                    />
-                    <MaterialCommunityIcons
-                      name="qrcode-scan"
-                      size={24}
-                      color="black"
-                      // color="#DEDEDE"
-                      style={{
-                        position: "absolute",
-                        top: 10,
-                        right: 10,
-                      }}
-                    />
-                  </View>
-                </View>
-                <View style={{}}>
-                  <Text style={styles.subText}>Invoice Number</Text>
+                  }
+                >
                   <TextInput
                     style={styles.halfInput}
                     // onChangeText={onChangeText}
                     // value={text}
-                    placeholder="Please enter project"
+                    placeholder="手輸發票"
+                  />
+                  <MaterialCommunityIcons
+                    name="qrcode-scan"
+                    size={24}
+                    color="black"
+                    // color="#DEDEDE"
+                    style={{
+                      position: "absolute",
+                      top: 10,
+                      right: 10,
+                    }}
                   />
                 </View>
               </View>
+              <View style={{}}>
+                <Text style={styles.subText}>商家</Text>
+                <TextInput
+                  style={styles.halfInput}
+                  // onChangeText={onChangeText}
+                  // value={text}
+                  placeholder="商家名稱"
+                />
+              </View>
+              {/* </View> */}
               <View>
-                <Text style={styles.subText}>Location</Text>
+                <Text style={styles.subText}>消費地點</Text>
                 <TextInput
                   style={styles.input}
                   // onChangeText={onChangeText}
                   // value={text}
-                  placeholder="Please enter location"
+                  placeholder="請輸入地址"
                 />
               </View>
             </View>
@@ -555,6 +628,27 @@ const Page = memo(({ listings }: Props) => {
           </Modal.Footer> */}
         </Modal.Container>
       </Modal>
+      <View
+        style={{
+          padding: 20,
+          paddingVertical: 30,
+          // backgroundColor: "red",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity style={{}}>
+          <Text>設為範本</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text>再記一筆</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text>儲存</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 });
@@ -728,7 +822,7 @@ const styles = StyleSheet.create({
   //   flexDirection: "row",
   // },
   "1col": {
-    backgroundColor: "lightblue",
+    // backgroundColor: "lightblue",
     borderColor: "#fff",
     borderWidth: 1,
     flex: 1,
@@ -742,6 +836,8 @@ const styles = StyleSheet.create({
     flex: 2,
     justifyContent: "center",
     alignItems: "center",
+    marginVertical: 10,
+    gap: 10,
   },
   "3col": {
     backgroundColor: "orange",
@@ -751,6 +847,44 @@ const styles = StyleSheet.create({
   },
   "4col": {
     flex: 4,
+  },
+  dropdown: {
+    height: 40,
+    borderColor: "#DEDEDE",
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  label: {
+    position: "absolute",
+    backgroundColor: "white",
+    left: 22,
+    top: 8,
+    zIndex: 999,
+    paddingHorizontal: 8,
+    fontSize: 14,
+  },
+  placeholderStyle: {
+    fontSize: 14,
+    color: "#CECED0",
+    fontWeight: "bold",
+  },
+  selectedTextStyle: {
+    // fontSize: 16,
+    fontSize: 14,
+    // color: "#CECED0",
+    // fontWeight: "bold",
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
   },
 });
 

@@ -13,6 +13,7 @@ import React, { useMemo, useRef, useState } from "react";
 import { defaultStyles } from "@/constants/Styles";
 import Colors from "@/constants/Colors";
 import Animated, { FadeInRight, FadeOutLeft } from "react-native-reanimated";
+import { Link } from "expo-router";
 
 type RenderRowProps = {
   postImg?: string;
@@ -60,73 +61,73 @@ const Page = () => {
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   const RenderRow = ({ avaImg, postImg, title }: RenderRowProps) => (
-    // <Link href={`/listing/${item.id}`} asChild>
-    <TouchableOpacity>
-      <Animated.View
-        style={styles.listing}
-        entering={FadeInRight}
-        exiting={FadeOutLeft}
-      >
-        <View
-          style={{
-            display: "flex",
-            gap: 10,
-            borderColor: "#D9D9D9",
-            borderWidth: 1,
-            borderRadius: 10,
-          }}
+    <Link href={`/videos/`} asChild>
+      <TouchableOpacity>
+        <Animated.View
+          style={styles.listing}
+          entering={FadeInRight}
+          exiting={FadeOutLeft}
         >
-          <Animated.Image
-            source={{
-              uri: postImg,
+          <View
+            style={{
+              display: "flex",
+              gap: 10,
+              borderColor: "#D9D9D9",
+              borderWidth: 1,
+              borderRadius: 10,
             }}
-            style={styles.image}
-          />
-          <TouchableOpacity
-            style={{ position: "absolute", right: 30, top: 30 }}
-          ></TouchableOpacity>
-          <View style={{ flexDirection: "row", display: "flex" }}>
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                gap: 4,
-                padding: 10,
+          >
+            <Animated.Image
+              source={{
+                uri: postImg,
               }}
-            >
-              <Image
-                style={styles.avatarImage}
-                source={{
-                  uri:
-                    avaImg ??
-                    "https://images.unsplash.com/photo-1609741199878-3e8ebdb1dbc7?q=80&w=3027&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                }}
-                resizeMode={"cover"}
-              />
-            </View>
-            <View
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: 300,
-              }}
-            >
-              <Text
+              style={styles.image}
+            />
+            <TouchableOpacity
+              style={{ position: "absolute", right: 30, top: 30 }}
+            ></TouchableOpacity>
+            <View style={{ flexDirection: "row", display: "flex" }}>
+              <View
                 style={{
-                  fontSize: 16,
-                  fontFamily: "mon-sb",
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: 4,
+                  padding: 10,
                 }}
               >
-                {title ??
-                  `ETF是什麼？怎麼買？認識台股最紅兩支ETF，被動投資學習`}
-              </Text>
+                <Image
+                  style={styles.avatarImage}
+                  source={{
+                    uri:
+                      avaImg ??
+                      "https://images.unsplash.com/photo-1609741199878-3e8ebdb1dbc7?q=80&w=3027&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                  }}
+                  resizeMode={"cover"}
+                />
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: 300,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontFamily: "mon-sb",
+                  }}
+                >
+                  {title ??
+                    `ETF是什麼？怎麼買？認識台股最紅兩支ETF，學習被動投資學習`}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
-      </Animated.View>
-    </TouchableOpacity>
-    // </Link>
+        </Animated.View>
+      </TouchableOpacity>
+    </Link>
   );
 
   return (

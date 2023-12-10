@@ -4,10 +4,14 @@ import Animated from "react-native-reanimated";
 
 import * as Progress from "react-native-progress";
 
-type Props = {};
+type Props = {
+  rate: number;
+};
 
 const AppProgressBar = (props: Props) => {
-  return <Progress.Bar progress={0.3} width={100} color="#0D9E00" />;
+  return (
+    <Progress.Bar progress={props.rate / 100} width={100} color="#0D9E00" />
+  );
 };
 
 export default AppProgressBar;

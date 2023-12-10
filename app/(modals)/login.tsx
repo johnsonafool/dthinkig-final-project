@@ -220,8 +220,10 @@ const Page = () => {
             <Text style={styles.welcomeText}>歡迎使用 ClimbFin</Text>
             <View>
               <Text style={styles.welcomeDesc}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                {`The gateway to navigate your financial journey\n`}
+              </Text>
+              <Text style={styles.welcomeDesc}>
+                {`Our mantra, "Climb to your financial summit!", resonates with our goal financial success!`}
               </Text>
             </View>
 
@@ -374,8 +376,10 @@ const Page = () => {
           </Animated.View>
           <View>
             <Text style={styles.welcomeDesc}>
-              {`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.`}
+              {`The gateway to navigate your financial journey\n`}
+            </Text>
+            <Text style={styles.welcomeDesc}>
+              {`Our mantra, "Climb to your financial summit!", resonates with our goal financial success!`}
             </Text>
           </View>
         </Animated.View>

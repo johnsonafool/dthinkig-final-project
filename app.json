@@ -45,6 +45,10 @@
     "experiments": {
       "typedRoutes": true,
       "tsconfigPaths": true
+    },
+    "packagerOpts": {
+      "config": "metro.config.js",
+      "sourceExts": ["js", "jsx", "json", "wasm", "svg"]
     }
   }
 }
