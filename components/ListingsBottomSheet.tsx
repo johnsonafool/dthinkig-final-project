@@ -37,7 +37,7 @@ const ListingsBottomSheet = ({ listings, category }: Props) => {
         {/* <TouchableOpacity onPress={onShowMap} style={styles.btn}> */}
         <TouchableOpacity
           onPress={() => router.push("/new/")}
-          style={styles.btn}
+          // style={styles.btn}
         >
           {/* <Text style={{ fontFamily: "mon-sb", color: "#fff" }}>Add</Text> */}
           {/* <Ionicons
@@ -46,12 +46,13 @@ const ListingsBottomSheet = ({ listings, category }: Props) => {
               style={{ marginLeft: 10 }}
               color={"#fff"}
             /> */}
-          <AntDesign
+          {/* <AntDesign
             name="plus"
             size={20}
             // style={{ marginLeft: 10 }}
             color={"#fff"}
-          />
+          /> */}
+          <Ionicons name="add-circle-outline" size={48} color="#0D9E00" />
         </TouchableOpacity>
       </View>
     </View>

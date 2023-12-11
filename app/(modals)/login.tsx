@@ -32,6 +32,12 @@ const LANGUAGES = [
   "歡迎使用 ClimbFin",
   "웰컴 ClimbFin",
 ];
+const IMAGE_URIS = [
+  "https://media.istockphoto.com/id/1286071629/photo/people-putting-coins-into-another-peoples-hands.webp?b=1&s=170667a&w=0&k=20&c=VC8dLkNdvQyOESCE9dToFGJTUdYxx9mOcpmqQt6S_vo=",
+  "https://media.istockphoto.com/id/1333748557/photo/woman-writing-a-list-of-debt-on-notebook-calculating-her-expenses-with-calculator.webp?b=1&s=170667a&w=0&k=20&c=4hvZB3pqaqJ3jQWa8N1Vzs2xzv0F1qK4a7rfhKu8hsw=",
+  "https://media.istockphoto.com/id/1459541734/photo/large-group-of-entrepreneurs-attending-a-seminar-in-board-room.webp?b=1&s=170667a&w=0&k=20&c=Dq3OygK__b9VI-BNg5cnRohc8Z6IucZyMqWgPeeaL-Q=",
+  "https://images.unsplash.com/photo-1624555130858-7ea5b8192c49?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHN0YXJ0JTIwcGxhbnxlbnwwfHwwfHx8MA%3D%3D",
+];
 
 enum Strategy {
   Google = "oauth_google",
@@ -222,17 +228,23 @@ const Page = () => {
               <Text style={styles.welcomeDesc}>
                 {`The gateway to navigate your financial journey\n`}
               </Text>
-              <Text style={styles.welcomeDesc}>
+              {/* <Text style={styles.welcomeDesc}>
                 {`Our mantra, "Climb to your financial summit!", resonates with our goal financial success!`}
-              </Text>
+              </Text> */}
             </View>
 
-            <View>
-              <Image
-                style={{ width: 250, height: 250 }}
-                source={require("./White_Green_Simple_and_Professional_Business_Pitch_Deck_Presentation.png")}
+            <Animated.View entering={FadeInRight} exiting={FadeOutLeft}>
+              <Animated.Image
+                style={{
+                  width: 250,
+                  height: 250,
+                  marginTop: 10,
+                  borderRadius: 10,
+                }}
+                // source={require("@/assets/images/White_Green_Simple_and_Professional_Business_Pitch_Deck_Presentation.png")}
+                source={{ uri: IMAGE_URIS[activeIndex % 4] }}
               />
-            </View>
+            </Animated.View>
 
             <View>
               <Carousel
@@ -379,7 +391,7 @@ const Page = () => {
               {`The gateway to navigate your financial journey\n`}
             </Text>
             <Text style={styles.welcomeDesc}>
-              {`Our mantra, "Climb to your financial summit!", resonates with our goal financial success!`}
+              {`Our mantra, "Climb to your financial summit", resonates with our goal financial success!`}
             </Text>
           </View>
         </Animated.View>

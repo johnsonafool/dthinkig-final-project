@@ -264,7 +264,7 @@ const Page = memo(({ listings }: Props) => {
                 height: cardWidth / 1.5,
               }}
             >
-              <Text style={{ fontFamily: "mon-b", fontSize: 40 }}>$0</Text>
+              <Text style={{ fontFamily: "mon-b", fontSize: 40 }}>$100</Text>
             </View>
           </View>
         </TouchableOpacity>

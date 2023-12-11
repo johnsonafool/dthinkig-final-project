@@ -18,6 +18,8 @@ import { useEffect, useRef, useState } from "react";
 // } from "@gorhom/bottom-sheet";
 // import DateTimePicker from "@react-native-community/datetimepicker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+// import React, { useState } from "react";
+import { Calendar, LocaleConfig } from "react-native-calendars";
 
 export const cardGap = 16;
 
@@ -62,6 +64,7 @@ const Listings = ({ listings: items, refresh, category }: Props) => {
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [selected, setSelected] = useState("");
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
@@ -84,59 +87,71 @@ const Listings = ({ listings: items, refresh, category }: Props) => {
 
   // Render one listing row for the FlatList
   const RenderRow: any = ({ item }: { item: any }) => (
-    <Link href={`/listing/${item.id}`} asChild>
-      <TouchableOpacity>
-        <Animated.View
-          style={styles.listing}
-          entering={FadeInRight}
-          exiting={FadeOutLeft}
-        >
-          <ScrollView>
-            <View
-              style={{
-                flexDirection: "row",
-                flexWrap: "wrap",
-                justifyContent: "center",
+    // <Link href={`/listing/${item.id}`} asChild>
+    <TouchableOpacity>
+      <Animated.View
+        style={styles.listing}
+        entering={FadeInRight}
+        exiting={FadeOutLeft}
+      >
+        <ScrollView>
+          <View
+            style={
+              {
+                // flexDirection: "row",
+                // flexWrap: "wrap",
+                // justifyContent: "center",
+              }
+            }
+          >
+            <Calendar
+              onDayPress={(day) => {
+                setSelected(day.dateString);
               }}
-            >
-              {subjects.map((subject, i) => {
-                return (
-                  <View
-                    key={subject.id}
-                    style={{
-                      marginTop: cardGap,
-                      marginLeft: i % 2 !== 0 ? cardGap : 0,
-                      width: cardWidth,
-                      height: 180,
-                      backgroundColor: "white",
-                      borderRadius: 16,
-                      shadowOpacity: 0.1,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <TouchableOpacity>
-                      <Text>{subject.name}</Text>
-                    </TouchableOpacity>
-                  </View>
-                );
-              })}
-            </View>
-          </ScrollView>
-          <View style={styles.noRecord}>
-            <MaterialCommunityIcons
-              name="file-document-edit-outline"
-              size={96}
-              color="#DEDEDE"
+              markedDates={{
+                [selected]: {
+                  selected: true,
+                  disableTouchEvent: true,
+                  // selectedDotColor: "orange",
+                },
+              }}
             />
-            <View>
-              <Text style={styles.noRecordText}>No Record</Text>
-              <Text style={styles.noRecordText}>
-                Click + Icon to Add New Expense Record
-              </Text>
-            </View>
+            {/* {subjects.map((subject, i) => {
+              return (
+                <View
+                  key={subject.id}
+                  style={{
+                    marginTop: cardGap,
+                    marginLeft: i % 2 !== 0 ? cardGap : 0,
+                    width: cardWidth,
+                    height: 180,
+                    backgroundColor: "white",
+                    borderRadius: 16,
+                    shadowOpacity: 0.1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <TouchableOpacity>
+                    <Text>{subject.name}</Text>
+                  </TouchableOpacity>
+                </View>
+              );
+            })} */}
+          </View>
+        </ScrollView>
+        <View style={styles.noRecord}>
+          <MaterialCommunityIcons
+            name="file-document-edit-outline"
+            size={96}
+            color="#DEDEDE"
+          />
+          <View>
+            <Text style={styles.noRecordText}>沒有紀錄</Text>
+            <Text style={styles.noRecordText}>點擊＋號新增一筆</Text>
+          </View>
 
-            {/* <DateTimePicker
+          {/* <DateTimePicker
               testID="dateTimePicker"
               value={date}
               mode={mode as any}
@@ -146,9 +161,9 @@ const Listings = ({ listings: items, refresh, category }: Props) => {
           </View>
           <View>
             <Text>date</Text> */}
-          </View>
+        </View>
 
-          {/* <Animated.Image source={{ uri: item.medium_url }} style={styles.image} />        <TouchableOpacity style={{ position: 'absolute', right: 30, top: 30 }}>
+        {/* <Animated.Image source={{ uri: item.medium_url }} style={styles.image} />        <TouchableOpacity style={{ position: 'absolute', right: 30, top: 30 }}>
             <Ionicons name="heart-outline" size={24} color="#000" />
           </TouchableOpacity>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -163,9 +178,9 @@ const Listings = ({ listings: items, refresh, category }: Props) => {
             <Text style={{ fontFamily: 'mon-sb' }}>€ {item.price}</Text>
             <Text style={{ fontFamily: 'mon' }}>night</Text>
           </View> */}
-        </Animated.View>
-      </TouchableOpacity>
-    </Link>
+      </Animated.View>
+    </TouchableOpacity>
+    // </Link>
   );
 
   return (
